@@ -1,0 +1,11 @@
+---
+
+- name: crear usuarios
+  postgresql_user:
+    name: "{{ item.nombre }}"
+    password: "{{ item.password }}"
+    priv: "{{ item.priv }}"
+  become: true
+  become_method: su
+  become_user: postgres
+  with_items: "{{ info_usuarios }}"

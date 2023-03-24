@@ -1,11 +1,12 @@
 ---
 
 - name: Crear db
-  postgresql_db:
-    name: db_prueba
+  community.postgresql.postgresql_db:
+    name: "{{ item }}"
     state: present
-#    password: 123456
-    login_host: localhost
-#    connect_params: --no-password
+  become: true
+  become_method: su
   become_user: postgres
-  
+  with_items: "{{ db }}"
+
+...  

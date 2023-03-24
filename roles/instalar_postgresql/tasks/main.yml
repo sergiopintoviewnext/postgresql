@@ -8,7 +8,7 @@
 
 
 - name: Instalar postgresql
-  yum:
+  ansible.builtin.yum:
     name: "{{ item }}"
     state: present
     update_cache: true
@@ -19,13 +19,15 @@
 
 
 - name: Inicializar postgresql
-  command:
+  ansible.builtin.command:
     cmd: postgresql-15-setup initdb
-  ignore_errors: true
+  register: ini_postgres
+  failed_when: ini_postgres.changed == "false"
+  changed_when: false
 
 
 - name: Iniciar servicio postgresql
-  service:
+  ansible.builtin.service:
     state: started
     name: postgresql-15
     enabled: true
