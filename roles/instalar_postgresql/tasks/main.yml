@@ -1,0 +1,33 @@
+---
+
+- name: Añadir repositorio postgresql
+  yum:
+    name: https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+    state: present
+    disable_gpg_check: true
+
+
+- name: Instalar postgresql
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - postgresql15-server
+    - python39
+    - python3-psycopg2
+
+
+- name: Inicializar postgresql
+  command:
+    cmd: postgresql-15-setup initdb
+  ignore_errors: true
+
+
+- name: Iniciar servicio postgresql
+  service:
+    state: started
+    name: postgresql-15
+    enabled: true
+
+...

@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include instalar_postgresql"
+      include_role:
+        name: "instalar_postgresql"

@@ -1,0 +1,11 @@
+---
+
+- name: Crear db
+  postgresql_db:
+    name: db_prueba
+    state: present
+#    password: 123456
+    login_host: localhost
+#    connect_params: --no-password
+  become_user: postgres
+  
