@@ -1,26 +1,23 @@
 ---
-
+#Al contenedor ubi8 hay que añadirle el repositorio de postgresql ya que por defecto yum no encuentra el paquete.
 - name: Añadir repositorio postgresql
-  yum:
-    name: https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+  ansible.builtin.yum:
+    name: "{{ url_repo }}"
     state: present
     disable_gpg_check: true
 
 
-- name: Instalar postgresql
+- name: Instalar postgresql y psycopg2
   ansible.builtin.yum:
     name: "{{ item }}"
     state: present
     update_cache: true
-  with_items:
-    - postgresql15-server
-    - python39
-    - python3-psycopg2
+  with_items: "{{ paquetes }}"
 
 
 - name: Inicializar postgresql
   ansible.builtin.command:
-    cmd: postgresql-15-setup initdb
+    cmd: postgresql-{{ version_postgresql }}-setup initdb
   register: ini_postgres
   failed_when: ini_postgres.changed == "false"
   changed_when: false
@@ -29,7 +26,7 @@
 - name: Iniciar servicio postgresql
   ansible.builtin.service:
     state: started
-    name: postgresql-15
+    name: postgresql-{{ version_postgresql }}
     enabled: true
 
 ...

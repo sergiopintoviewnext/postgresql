@@ -5,6 +5,27 @@
   hosts: all
   gather_facts: false
   tasks:
-  - name: Example assertion
-    ansible.builtin.assert:
-      that: true
+#  - name: Example assertion
+#    ansible.builtin.assert:
+#      that: true
+   - name: Comprobar existe fichero postgresql.conf
+     stat:
+       path: /var/lib/pgsql/15/data/postgresql.conf
+     register: fichero_conf 
+
+   - name: Assert fichero_conf
+     assert:
+       that: fichero_conf.stat.exists == True
+       success_msg: "El fichero postgresql.conf existe, Postgresql se ha instalado"
+       fail_msg: "El fichero postgresql.conf NO existe, Posgresql no se ha instalado"
+
+   - name: Comprobar existe fichero .s.PGSQL.5432
+     stat:
+       path: /var/run/postgresql/.s.PGSQL.5432
+     register: socket_postgresql
+
+   - name: Assert socket_postgresql
+     assert:
+       that: socket_postgresql.stat.exists == True
+       success_msg: "El fichero .s.PGSQL.5432 existe, Postgresql se ha instalado"
+       fail_msg: "El fichero .s.PGSQL.5432 NO existe, Posgresql no se ha instalado"

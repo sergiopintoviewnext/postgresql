@@ -1,5 +1,5 @@
 #diccionario con informacion de usuarios
 
 info_usuarios:
-  - { nombre: usuario3, password: 123456, priv: db_1.*:ALL }
-  - { nombre: usuario4, password: qwerty, priv: db_2.*:SELECT }
+  - { nombre: usuario1, password: 123456, priv: ALL, db: db_1 }
+  - { nombre: usuario2, password: qwerty, priv: SELECT,UPDATE,INSERT, db: db_2 }
