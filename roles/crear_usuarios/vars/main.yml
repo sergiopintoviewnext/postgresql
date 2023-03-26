@@ -1,5 +1,16 @@
 #diccionario con informacion de usuarios
 
 info_usuarios:
-  - { nombre: usuario1, password: 123456, priv: ALL, db: db_1 }
-  - { nombre: usuario2, password: qwerty, priv: SELECT,UPDATE,INSERT, db: db_2 }
+  - { nombre: usuario3,
+      password: 123456, 
+      priv: ALL, 
+      db: db_1, 
+      objs: db_1, 
+      type: database }
+
+  - { nombre: usuario2, 
+      password: qwerty, 
+      priv: "select,insert,update", 
+      db: db_2, 
+      objs: tables, 
+      type: default_privs }

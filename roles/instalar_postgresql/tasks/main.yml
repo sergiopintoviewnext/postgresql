@@ -1,5 +1,6 @@
 ---
-#Al contenedor ubi8 hay que añadirle el repositorio de postgresql ya que por defecto yum no encuentra el paquete.
+#Al contenedor ubi8 hay que añadirle el repositorio de postgresql ya que por defecto yum no encuentra
+#el paquete para instalar postgresql
 - name: Añadir repositorio postgresql
   ansible.builtin.yum:
     name: "{{ url_repo }}"

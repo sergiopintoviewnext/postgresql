@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include copia_seguridad"
+      include_role:
+        name: "copia_seguridad"
