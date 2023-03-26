@@ -1,11 +1,11 @@
 #diccionario con informacion de usuarios
 
 info_usuarios:
-  - { nombre: usuario3,
+  - { nombre: usuario1,
       password: 123456, 
       priv: ALL, 
       db: db_1, 
-      objs: db_1, 
+      objs: db_3, 
       type: database }
 
   - { nombre: usuario2, 

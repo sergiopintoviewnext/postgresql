@@ -1,20 +1,21 @@
 ---
 
-#Con el usuario postgres da error, no tiene permisos, se deberá utilizar un usuario creado con permisos.
+#Con el usuario postgres da error, no tiene permisos, se deberá utilizar un usuario creado previamente.
 - name: Crear copia de suguridad
   community.postgresql.postgresql_db:
     name: "{{ item }}"
     state: dump
-    target: /tmp/{{ item }}.sql
+    target: /var/lib/pgsql/{{ version_postgresql }}/backups/{{ item }}.sql
     login_user: "{{ nombre_usuario }}"
     login_password: "{{ password_usuario }}"
     login_host: "{{ host }}"
   with_items: "{{ db }}"
+  changed_when: false
 
 
 - name: Comprobar ficheros copia de seguridad
   ansible.builtin.stat:
-    path: /tmp/{{ item }}.sql
+    path: /var/lib/pgsql/{{ version_postgresql }}/backups/{{ item }}.sql
   register: fichero_copia
   with_items: "{{ db }}"
 
