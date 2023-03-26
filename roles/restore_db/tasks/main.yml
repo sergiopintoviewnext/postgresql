@@ -5,9 +5,6 @@
     name: "{{ item }}"
     state: restore
     target: /var/lib/pgsql/{{ version_postgresql }}/backups/{{ item }}.sql
-#    login_user: "{{ nombre_usuario }}"
-#    login_password: "{{ password_usuario }}"
-#    login_host: "{{ host }}"
   with_items: "{{ db }}"
   changed_when: false
   become: true
