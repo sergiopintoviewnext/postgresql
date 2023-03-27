@@ -1,7 +1,5 @@
-#version de postgres para indicar la ruta correcta a la carpeta backups de postgresql
-version_postgresql: 15
-
 #bases de datos sobre las que hacer copia de seguridad
 db: [ "db_1", "db_2", "db_3" ]
 
-
+#ruta donde ubicar los backups
+path: /tmp/

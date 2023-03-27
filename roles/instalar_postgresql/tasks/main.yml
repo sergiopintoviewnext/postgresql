@@ -1,7 +1,7 @@
-- name: incluir instalacion RHEL8
-  include_tasks: redhat.yml
+- name: Incluir instalacion RHEL8
+  ansible.builtin.include_tasks: redhat.yml
   when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
 
-- name: incluir instalacion Debian
-  include_tasks: debian.yml
+- name: Incluir instalacion Debian
+  ansible.builtin.include_tasks: debian.yml
   when: ansible_distribution == "Debian"

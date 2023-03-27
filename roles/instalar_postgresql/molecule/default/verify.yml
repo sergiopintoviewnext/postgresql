@@ -3,29 +3,51 @@
 
 - name: Verify
   hosts: all
-  gather_facts: false
+  gather_facts: true
+  vars:
+    version_postgresql: 15
   tasks:
 #  - name: Example assertion
 #    ansible.builtin.assert:
 #      that: true
-   - name: Comprobar existe fichero postgresql.conf
-     stat:
-       path: /var/lib/pgsql/15/data/postgresql.conf
-     register: fichero_conf 
 
-   - name: Assert fichero_conf
-     assert:
-       that: fichero_conf.stat.exists == True
-       success_msg: "El fichero postgresql.conf existe, Postgresql se ha instalado"
-       fail_msg: "El fichero postgresql.conf NO existe, Posgresql no se ha instalado"
+#   - name: Comprobar existe fichero .s.PGSQL.5432
+#     ansible.builtin.stat:
+#       path: /var/run/postgresql/.s.PGSQL.5432
+#     register: socket_postgresql
 
-   - name: Comprobar existe fichero .s.PGSQL.5432
-     stat:
-       path: /var/run/postgresql/.s.PGSQL.5432
-     register: socket_postgresql
+#   - name: Assert socket_postgresql
+#     ansible.builtin.assert:
+#       that: socket_postgresql.stat.exists == True
+#       success_msg: "El fichero .s.PGSQL.5432 existe, Postgresql se ha instalado"
+#       fail_msg: "El fichero .s.PGSQL.5432 NO existe, Posgresql no se ha instalado"
 
-   - name: Assert socket_postgresql
-     assert:
-       that: socket_postgresql.stat.exists == True
-       success_msg: "El fichero .s.PGSQL.5432 existe, Postgresql se ha instalado"
-       fail_msg: "El fichero .s.PGSQL.5432 NO existe, Posgresql no se ha instalado"
+   - name: Comprobar servicio postgresql en Rhel8
+     ansible.builtin.service:
+       name: postgresql-{{ version_postgresql }}
+       state: started
+     register: servicio_redhat
+     when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
+
+
+   - name: Assert servicio Rhel8
+     ansible.builtin.assert:
+       that: servicio_redhat.changed == false
+       success_msg: "El servicio de postgresql esta instalado y corriendo"
+       fail_msg: "El servicio de postgresql NO esta instalado y NO está corriendo"
+     when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
+
+
+   - name: Comprobar servicio postgresql en Debian
+     ansible.builtin.service: 
+       name: postgresql
+       state: started
+     register: servicio_debian
+     when: ansible_distribution == "Debian"
+
+   - name: Assert servicio Debian
+     ansible.builtin.assert:
+       that: servicio_debian.changed == false
+       success_msg: "El servicio de postgresql esta instalado y corriendo"
+       fail_msg: "El servicio de postgresql NO esta instalado y NO está corriendo"
+     when: ansible_distribution == "Debian"

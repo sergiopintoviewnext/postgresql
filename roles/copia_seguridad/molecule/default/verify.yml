@@ -6,7 +6,7 @@
   gather_facts: false
   vars:
     db: [ "db_1", "db_2", "db_3" ]
-    version_postgresql: 15
+    path: /tmp/
   tasks:
 #  - name: Example assertion
 #    ansible.builtin.assert:
@@ -14,7 +14,7 @@
 
    - name: Comprobar ficheros copia de seguridad
      ansible.builtin.stat:
-       path: /var/lib/pgsql/{{ version_postgresql }}/backups/{{ item }}.sql
+       path: "{{ path }}{{ item }}.sql"
      register: fichero_copia
      with_items: "{{ db }}"
 

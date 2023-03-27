@@ -15,8 +15,8 @@ platforms:
       - SYS_ADMIN
     command: "/usr/sbin/init"
     pre_build_image: true
-#  - name: CentOS
-#    image: docker.io/centos:latest
+  - name: Debian
+    image: docker.io/debian:latest
 #    pre_build_image: true
 provisioner:
   name: ansible

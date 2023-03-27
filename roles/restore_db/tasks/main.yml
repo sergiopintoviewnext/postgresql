@@ -1,14 +1,28 @@
 ---
 
-- name: Restore de db
+- name: Restore de db Rhel8
   community.postgresql.postgresql_db:
     name: "{{ item }}"
     state: restore
-    target: /var/lib/pgsql/{{ version_postgresql }}/backups/{{ item }}.sql
+    target: "{{ path }}{{ item }}.sql"
   with_items: "{{ db }}"
   changed_when: false
   become: true
   become_method: su
   become_user: postgres
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
+
+- name: Restore de db Debian
+  community.postgresql.postgresql_db:
+    name: "{{ item }}"
+    state: restore
+    target: "{{ path }}{{ item }}.sql"
+  with_items: "{{ db }}"
+  changed_when: false
+  become: true
+  become_method: su
+  become_user: postgres
+  when: ansible_distribution == "Debian"
+
 
 ...

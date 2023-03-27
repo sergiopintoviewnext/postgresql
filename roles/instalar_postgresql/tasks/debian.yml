@@ -1,20 +1,13 @@
 ---
 
-#- setup:
-#  register: var1
-
-#- debug:
-#    var: var1
-
 - name: Instalar gnupg
-  become: yes
-  apt:
+  ansible.builtin.apt:
     name: gnupg
     state: present
-
+    update_cache: true
 
 - name: Agregar clave GPG de postgresql
-  apt_key:
+  ansible.builtin.apt_key:
     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
     state: present
 
