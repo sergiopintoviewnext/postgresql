@@ -4,7 +4,4 @@ version_postgresql: 15
 #bases de datos sobre las que hacer copia de seguridad
 db: [ "db_1", "db_2", "db_3" ]
 
-#datos de usuario para la conexion con la db
-nombre_usuario: usuario1
-password_usuario: 123456
-host: localhost 
+

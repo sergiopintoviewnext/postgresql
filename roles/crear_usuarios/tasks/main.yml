@@ -17,6 +17,7 @@
     privs: "{{ item.priv }}"
     objs: "{{ item.objs }}"
     type: "{{ item.type }}"
+    grant_option: "{{ item.grant_option }}"
     state: present
   with_items: "{{ info_usuarios }}"     
   become: true

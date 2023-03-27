@@ -1,16 +1,15 @@
 ---
 
-#Con el usuario postgres da error, no tiene permisos, se deberá utilizar un usuario creado previamente.
 - name: Crear copia de suguridad
   community.postgresql.postgresql_db:
     name: "{{ item }}"
     state: dump
     target: /var/lib/pgsql/{{ version_postgresql }}/backups/{{ item }}.sql
-    login_user: "{{ nombre_usuario }}"
-    login_password: "{{ password_usuario }}"
-    login_host: "{{ host }}"
   with_items: "{{ db }}"
   changed_when: false
+  become: true
+  become_method: su
+  become_user: postgres
 
 
 - name: Comprobar ficheros copia de seguridad

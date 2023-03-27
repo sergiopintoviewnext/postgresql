@@ -1,33 +1,7 @@
----
-#Al contenedor ubi8 hay que añadirle el repositorio de postgresql ya que por defecto yum no encuentra
-#el paquete para instalar postgresql
-- name: Añadir repositorio postgresql
-  ansible.builtin.yum:
-    name: "{{ url_repo }}"
-    state: present
-    disable_gpg_check: true
+- name: incluir instalacion RHEL8
+  include_tasks: redhat.yml
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version == "8"
 
-
-- name: Instalar postgresql y psycopg2
-  ansible.builtin.yum:
-    name: "{{ item }}"
-    state: present
-    update_cache: true
-  with_items: "{{ paquetes }}"
-
-
-- name: Inicializar postgresql
-  ansible.builtin.command:
-    cmd: postgresql-{{ version_postgresql }}-setup initdb
-  register: ini_postgres
-  failed_when: ini_postgres.changed == "false"
-  changed_when: false
-
-
-- name: Iniciar servicio postgresql
-  ansible.builtin.service:
-    state: started
-    name: postgresql-{{ version_postgresql }}
-    enabled: true
-
-...
+- name: incluir instalacion Debian
+  include_tasks: debian.yml
+  when: ansible_distribution == "Debian"
