@@ -7,20 +7,6 @@
   vars:
     version_postgresql: 15
   tasks:
-#  - name: Example assertion
-#    ansible.builtin.assert:
-#      that: true
-
-#   - name: Comprobar existe fichero .s.PGSQL.5432
-#     ansible.builtin.stat:
-#       path: /var/run/postgresql/.s.PGSQL.5432
-#     register: socket_postgresql
-
-#   - name: Assert socket_postgresql
-#     ansible.builtin.assert:
-#       that: socket_postgresql.stat.exists == True
-#       success_msg: "El fichero .s.PGSQL.5432 existe, Postgresql se ha instalado"
-#       fail_msg: "El fichero .s.PGSQL.5432 NO existe, Posgresql no se ha instalado"
 
    - name: Comprobar servicio postgresql en Rhel8
      ansible.builtin.service:
