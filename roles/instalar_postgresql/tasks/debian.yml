@@ -1,20 +1,20 @@
 ---
 
-- name: Instalar gnupg
-  ansible.builtin.apt:
-    name: gnupg
-    state: present
-    update_cache: true
+#- name: Instalar gnupg
+#  ansible.builtin.apt:
+#    name: gnupg
+#    state: present
+#    update_cache: true
 
-- name: Agregar clave GPG de postgresql
-  ansible.builtin.apt_key:
-    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-    state: present
+#- name: Agregar clave GPG de postgresql
+#  ansible.builtin.apt_key:
+#    url: "{{ clave_gpg_debian }}"
+#    state: present
 
-- name: Añadir repositorio postgresql
-  ansible.builtin.apt_repository:
-    repo: "{{ url_repo_debian }}"
-    state: present
+#- name: Añadir repositorio postgresql
+#  ansible.builtin.apt_repository:
+#    repo: "{{ url_repo_debian }}"
+#    state: present
 
 
 - name: Instalar postgresql y psycopg2

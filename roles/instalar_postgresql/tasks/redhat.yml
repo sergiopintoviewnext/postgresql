@@ -1,10 +1,10 @@
 ---
 
-- name: Añadir repositorio postgresql
-  ansible.builtin.yum:
-    name: "{{ url_repo_rhel8 }}"
-    state: present
-    disable_gpg_check: true
+#- name: Añadir repositorio postgresql
+#  ansible.builtin.yum:
+#    name: "{{ url_repo_rhel8 }}"
+#    state: present
+#    disable_gpg_check: true
 
 
 - name: Instalar postgresql y psycopg2

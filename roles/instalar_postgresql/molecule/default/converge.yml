@@ -1,6 +1,9 @@
 ---
 - name: Converge
   hosts: all
+  pre_tasks:
+    - name: Incluir pre-tasks
+      include_tasks: pre-tasks.yml
   tasks:
     - name: "Include instalar_postgresql"
       include_role:
